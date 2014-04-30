@@ -1,0 +1,38 @@
+PROGRAM: Countersign(R) Version 0.3 April 26, 2014
+README:
+	Countersign generates a password according to the users requirements/
+	specifications.  The available options are password length (8 - 12)
+	characters, number of passwords to generate (1 - 10).  Advanced options
+	are to include/exclude: lowercase characters, uppercase characters,
+	numerals, and/or symbols.  Choose your options and click 'generate'. Click
+	'copy' to copy the password(s) to your clipboard.  The ability to reset
+	options to default is available by clicking the 'reset' button.
+	
+INSTALL:
+	TODO
+	
+COPYING / LICENSE:
+	Countersign is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	Countersign is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with Countersign. If not, see <http://www.gnu.org/licenses/>.
+	
+AUTHOR(S):
+	Al Zuniga
+	
+THANKS:
+	Thanks to the Open Source Community for their contributions.
+	
+CHANGELOG:
+	
+NEWS:
+	
+BUGS:
