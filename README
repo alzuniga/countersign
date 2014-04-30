@@ -9,7 +9,23 @@ README:
 	options to default is available by clicking the 'reset' button.
 	
 INSTALL:
-	TODO
+	Minimum Requirements:
+	    Python 2.7.3
+	    PyGtk 2.24
+	    Gtk 2.24.10
+	
+	Extract files to desired directory, which include:
+	    countersign.glade
+	    countersign.py
+	    COPYING
+	    README
+	
+	Run with:
+	user@hostname$ python countersign.py
+	               or
+	user@hostname$ ./countersign.py
+	
+	NOTE: Do not include 'user@hostname$' as part of the command.
 	
 COPYING / LICENSE:
 	Countersign is free software: you can redistribute it and/or modify
@@ -32,7 +48,14 @@ THANKS:
 	Thanks to the Open Source Community for their contributions.
 	
 CHANGELOG:
+    04.29.2014 - version 0.3, initial commit version.
 	
 NEWS:
+
+TODO:
+    Add the following functionality:
+        - Insure each character is unique.
+        - No consecutive letters or numbers
+        - No sequential letters or numbers
 	
 BUGS:
