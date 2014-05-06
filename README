@@ -48,7 +48,22 @@ THANKS:
 	Thanks to the Open Source Community for their contributions.
 	
 CHANGELOG:
-    04.29.2014 - version 0.3, initial commit version.
+    04.29.2014 - version 0.3
+               * initial commit version.
+    05.05.2014 - version 0.4
+               * rewrote generate_btn_clicked_cb callback and broke it down
+                 into smaller functions, adding the following functions:
+                     - generate_lower
+                     - generate_upper
+                     - generate_numeral
+                     - generate_symbol
+                     - check_options
+                     - clear_password_list
+                     - generate_password
+                     - add_password
+               * added functionality to check each character and make sure it
+                 is unique.
+               * added documenting comments.
 	
 NEWS:
 
