@@ -3,6 +3,7 @@
 from gi.repository import Gtk, Gdk
 import string
 import random
+import re
 
 
 class PasswordGen(Gtk.Window):
@@ -10,17 +11,20 @@ class PasswordGen(Gtk.Window):
         Gtk.Window.__init__(self)
         self.builder = Gtk.Builder()
         self.builder.add_from_file("countersign.glade")
-        # Initialize Widgets
+
+        ''' Initialize the widgets. '''
         self.init_widgets()
-        # Connect Signals to Handlers
+        ''' Connect the signals to the handlers '''
         self.connect_signals()
-        # Set Widgets Default States
+        ''' Sets the widgets to the program default state. '''
         self.default_states()
-        # Show the Main Window
+
+        ''' Show the main window with all its widgets. '''
         self.win.show_all()
 
     def init_widgets(self):
-		# Main Window
+        '''Import widgets from *.glade file and initialize.'''
+        # Main Window
         self.win = self.builder.get_object("main_win")
         # Length Adjustment
         self.length_adj = self.builder.get_object("length_adj")
@@ -54,8 +58,9 @@ class PasswordGen(Gtk.Window):
         self.close_btn = self.builder.get_object("close_btn")
 
     def connect_signals(self):
+        ''' Connect signals to callbacks. '''
         handlers = {
-			# Close Button Signal
+            # Close Button Signal
             "close_cb": self.close_cb,
             # Generate Button Signal
             "generate_btn_clicked_cb": self.generate_btn_clicked_cb,
@@ -64,104 +69,163 @@ class PasswordGen(Gtk.Window):
             # Reset Button Signal
             "reset_cb": self.reset_cb,
         }
-        # Connect the signals to the handlers
+        ''' Connects the signals to the handlers. '''
         self.builder.connect_signals(handlers)
 
     def default_states(self):
+        '''Sets the default state of the widgets. '''
         self.win.set_title("Countersign")
         # Password Textview Iterator
-        self.password_list_iter_start = self.password_list_buffer.get_start_iter()
+        self.password_list_iter_start = \
+                                      self.password_list_buffer.get_start_iter()
         self.lowercase_ckbtn.set_active(True)
 
-	# Handlers
-	# Generate button handler
+    # Handlers
+    # Generate button handler
     def generate_btn_clicked_cb(self, widget):
-		# Check if passsword textview has a(ny) generated password(s) in it and 
-		# if it does, clear the passwords and reset the password textview
-		# iterator.
-        if self.password_list_buffer.get_char_count() > 0:
-            self.password_list_buffer.set_text('')
-            self.password_list_iter_start = self.password_list_buffer.get_start_iter()
+        '''Generates password(s) according to selected values and/or options'''
+        # Get the number of passwords to generate
+        number_of_passwords = int(self.quantity_adj.get_value())
+        # Buffer to hold generated password(s)
+        self.password_buffer = []
+        # Check and store character types checkbox state
+        self.selected_char_type = [self.lowercase_ckbtn.get_active(),
+                                   self.uppercase_ckbtn.get_active(),
+                                   self.numerals_ckbtn.get_active(),
+                                   self.symbols_ckbtn.get_active()]
+        self.check_options()
+        self.clear_password_list()
+        ''' Generate n number of passwords where n is the quantity selected by
+            the user, then append it to the buffer.'''
+        for count in range(number_of_passwords):
+            self.password_buffer.append(self.generate_password())
 
-		# Length of password(s), as selected
-        length = int(self.length_adj.get_value())
-        # Number of passwords to generate, as selected.
-        quantity = int(self.quantity_adj.get_value())
+        self.add_password(self.password_buffer)
 
-		# To store the character types, as selected.
-        self.password_character_list = ''
-        # Password list.
-        self.passwords = []
-		
-		# Check if no options are selected.  If no options are selected, select
-		# at least the lower case option.
-        if not self.lowercase_ckbtn.get_active() and\
-            not self.uppercase_ckbtn.get_active() and\
-            not self.numerals_ckbtn.get_active() and\
-            not self.symbols_ckbtn.get_active():
-                self.lowercase_ckbtn.set_active(True)
-		
-		# Determine if character type was selected and add them to the password
-		# character list string.
-        if self.lowercase_ckbtn.get_active():
-            self.password_character_list += string.ascii_lowercase
-
-        if self.uppercase_ckbtn.get_active():
-            self.password_character_list += string.ascii_uppercase
-
-        if self.numerals_ckbtn.get_active():
-            self.password_character_list += string.digits
-
-        if self.symbols_ckbtn.get_active():
-            self.password_character_list += string.punctuation
-		
-		# Generate n passwords where n is the quantity of passwords to generate.
-        for i in range(quantity):
-            password = ''
-            # Randomly select n amount of characters from the password character
-            # list, where n is the number characters to generate.
-            for j in range(length):
-                password += random.choice(self.password_character_list)
-            self.passwords.append(password)
-		
-		# Add passwords to password textview.
-        for i in range(len(self.passwords)):
-			# No new line before the first password
-            if i == 0:
-                self.password_list_buffer.insert(self.password_list_iter_start, self.passwords[i])
-            # No new line before / after the last password
-            elif i == len(self.passwords):
-                self.password_list_buffer.insert(self.password_list_iter_start, self.passwords[i])
-            # Prepend a new line to each password except as noted above.
-            else:
-                self.password_list_buffer.insert(self.password_list_iter_start, '\n' + self.passwords[i])
-	
-	# Copy button handler
+    # Copy button handler
     def copy_clicked_cb(self, widget):
+        ''' Copies the passwords to the clipboard. '''
         buf_start = self.password_list_buffer.get_start_iter()
         buf_end = self.password_list_buffer.get_end_iter()
         passwords = self.password_list_buffer.get_text(buf_start, buf_end, True)
         if len(passwords) > 0:
-            self.clipboard.set_text(passwords, -1) # -1 guesses length
-	
-	# Reset button handler
+            self.clipboard.set_text(passwords, -1)  # -1 guesses length
+
+    # Reset button handler
     def reset_cb(self, widget):
+        ''' Reset program to its default values. '''
         self.length_adj.set_value(8)
         self.quantity_adj.set_value(1)
         self.uppercase_ckbtn.set_active(False)
         self.numerals_ckbtn.set_active(False)
         self.symbols_ckbtn.set_active(False)
         self.password_list_buffer.set_text('')
-        self.password_list_iter_start = self.password_list_buffer.get_start_iter()
-	# Close button and Main window 'destroy' handler.
+        self.password_list_iter_start = \
+                                      self.password_list_buffer.get_start_iter()
+
+    # Close button and Main window 'destroy' handler.
     def close_cb(self, widget):
+        ''' Quits / terminates the program. '''
         Gtk.main_quit()
-	
-	# MAIN
+
+    def generate_lower(self):
+        ''' Generates a random lower case letter. '''
+        return string.lowercase[random.randint(0, len(string.lowercase) - 1)]
+
+    def generate_upper(self):
+        ''' Generates a random upper case letter. '''
+        return string.uppercase[random.randint(0, len(string.uppercase) - 1)]
+
+    def generate_numeral(self):
+        ''' Generates a random number. '''
+        return string.digits[random.randint(0, len(string.digits) - 1)]
+
+    def generate_symbol(self):
+        ''' Generates a random symbol. '''
+        return string.punctuation[random.randint(0,
+                                                 len(string.punctuation) - 1)]
+
+    def check_options(self):
+        '''Verify at least one character type is selected; if no character types
+        are selected, select lowercase character type as the default'''
+        if not self.selected_char_type[0] and\
+           not self.selected_char_type[1] and\
+           not self.selected_char_type[2] and\
+           not self.selected_char_type[3]:
+            self.lowercase_ckbtn.set_active(True)
+
+    def clear_password_list(self):
+        '''Clears any existing passwords from the password_list textview'''
+        if self.password_list_buffer.get_char_count() > 0:
+            self.password_list_buffer.set_text('')
+            self.password_list_iter_start = \
+                                      self.password_list_buffer.get_start_iter()
+
+    def generate_password(self):
+        ''' Generates a password n number of characters long, where n is a
+            length selected by the user.'''
+        password_length = int(self.length_adj.get_value())
+        password_character = ''
+        password = ''
+        ''' random_char_choice calls the appropriate function to generate a
+            random character associated with its index.'''
+        random_char_choice = {0: self.generate_lower,
+                              1: self.generate_upper,
+                              2: self.generate_numeral,
+                              3: self.generate_symbol}
+
+        while not password_length == 0:
+            # Select a random character type to generate
+            element = random.randint(0, 3)
+            ''' If the randomly selected character type is an active selection
+                generate a random character of that type. '''
+            if self.selected_char_type[element]:
+                password_character = random_char_choice[element]()
+                ''' If this is the first character of the password string,
+                    assign it to password. '''
+                if password == '':
+                    password += password_character
+                    password_length -= 1
+                # If this is not the first character of the password string,
+                # compare it to the character(s) already in the password
+                # string and verify it is unique.  If it is not unique, do not
+                # add it to the string.
+
+                # re.escape is used to escape any special symbols used by
+                # regular expressions.
+
+                # *.lower() changes the generated character and the password
+                # string to lowercase, to compare if there are any duplicate
+                # letters.
+                elif re.search(re.escape(password_character.lower()),
+                                 password.lower()):
+                    pass
+                # If the character is unique, add it to the string.
+                else:
+                    password += password_character
+                    password_length -= 1
+
+        return password
+
+    def add_password(self, password_buff):
+        ''' Adds the generated password(s) to the password_list textview. '''
+        for element in range(len(password_buff)):
+            if element == 0:
+                self.password_list_buffer.insert(self.password_list_iter_start,
+                                                 password_buff[element])
+            elif element == len(password_buff):
+                self.password_list_buffer.inster(self.password_list_iter_start,
+                                                 password_buff[element])
+            else:
+                self.password_list_buffer.insert(self.password_list_iter_start,
+                                                 '\n' + password_buff[element])
+
     def main(self):
+        ''' Main function of Countersign. '''
         Gtk.main()
 
 
 if __name__ == "__main__":
     main_win = PasswordGen()
     main_win.main()
+
