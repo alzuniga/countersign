@@ -1,4 +1,4 @@
-PROGRAM: Countersign(R) Version 0.3 April 26, 2014
+PROGRAM: Countersign(R) Version 0.4 May 05, 2014
 README:
 	Countersign generates a password according to the users requirements/
 	specifications.  The available options are password length (8 - 12)
