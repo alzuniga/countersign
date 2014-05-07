@@ -1,16 +1,27 @@
 #!/usr/bin/env python
 
-from gi.repository import Gtk, Gdk
-import string
-import random
-import re
+from gi.repository import Gtk, Gdk, GLib
+import os, random, re, string, sys
 
-
-class PasswordGen(Gtk.Window):
+class Countersign(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
-        self.builder = Gtk.Builder()
-        self.builder.add_from_file("countersign.glade")
+        
+        '''Use sys.argv[0] to get the directory from where the program was
+           executed.  Follow it to its original directory using os.readlink
+           if it is a symlink. Get the directory where the actual program
+           resides with os.path.dirname '''
+        program_directory = os.path.dirname(os.readlink(sys.argv[0]))
+        ''' Prepend the programs directory to the glade file name '''
+        gui_file = os.path.join(program_directory, 'countersign.glade')
+        
+        ''' Attempt to load *.glade file '''
+        try:
+            ''' Use Gtk.Builder to build UI from *.glade file. '''
+            self.builder = Gtk.Builder()
+            self.builder.add_from_file(gui_file)
+        except GLib.GError, e:
+            sys.exit("Gtk.Builder error({0}): {1}".format(e.code, e.message))
 
         ''' Initialize the widgets. '''
         self.init_widgets()
@@ -226,6 +237,6 @@ class PasswordGen(Gtk.Window):
 
 
 if __name__ == "__main__":
-    main_win = PasswordGen()
+    main_win = Countersign()
     main_win.main()
 
