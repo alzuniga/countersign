@@ -1,5 +1,10 @@
-PROGRAM: Countersign(R) Version 0.4 May 05, 2014
+********************************************************************************
+
+PROGRAM: Countersign(R) Version 0.5 May 06, 2014
+
+********************************************************************************
 README:
+
 	Countersign generates a password according to the users requirements/
 	specifications.  The available options are password length (8 - 12)
 	characters, number of passwords to generate (1 - 10).  Advanced options
@@ -7,8 +12,10 @@ README:
 	numerals, and/or symbols.  Choose your options and click 'generate'. Click
 	'copy' to copy the password(s) to your clipboard.  The ability to reset
 	options to default is available by clicking the 'reset' button.
-	
+
+********************************************************************************
 INSTALL:
+
 	Minimum Requirements:
 	    Python 2.7.3
 	    PyGtk 2.24
@@ -26,7 +33,8 @@ INSTALL:
 	user@hostname$ ./countersign.py
 	
 	NOTE: Do not include 'user@hostname$' as part of the command.
-	
+
+********************************************************************************
 COPYING / LICENSE:
 	Countersign is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -41,13 +49,19 @@ COPYING / LICENSE:
 	You should have received a copy of the GNU General Public License
 	along with Countersign. If not, see <http://www.gnu.org/licenses/>.
 	
+********************************************************************************
 AUTHOR(S):
+
 	Al Zuniga
-	
+
+********************************************************************************
 THANKS:
+
 	Thanks to the Open Source Community for their contributions.
-	
+
+********************************************************************************
 CHANGELOG:
+
     04.29.2014 - version 0.3
                * initial commit version.
     05.05.2014 - version 0.4
@@ -64,13 +78,20 @@ CHANGELOG:
                * added functionality to check each character and make sure it
                  is unique.
                * added documenting comments.
-	
-NEWS:
+	05.06.2014 - version 0.5
+			   * added program directory checking, permitting for program to be
+			     executed from any legal directory via a symlink.
+			   * added try / except for the loading of the *.glade file.
+			     Program will exit gracefully if the *.glade file cannot be
+			     loaded.
 
+********************************************************************************
 TODO:
+
     Add the following functionality:
-        - Insure each character is unique.
         - No consecutive letters or numbers
         - No sequential letters or numbers
-	
+
+********************************************************************************
 BUGS:
+	Still requires alpha testing.
