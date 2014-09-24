@@ -1,6 +1,6 @@
 ********************************************************************************
 
-PROGRAM: Countersign(R) Version 0.5 May 06, 2014
+PROGRAM: Countersign(R) Version 0.6 Sep 23, 2014
 
 ********************************************************************************
 README:
@@ -84,6 +84,13 @@ CHANGELOG:
 			   * added try / except for the loading of the *.glade file.
 			     Program will exit gracefully if the *.glade file cannot be
 			     loaded.
+	09.23.2014 - version 0.6
+				* Fixed bug that would lock up program if no Advanced Options 
+				  were selected.  Set program to automatically default to 
+				  lowercase if no Advanced Options are selected when generating
+				  a password.
+				* Cleaned up comments, removing documentation comments from
+				  portions which did not require documentation comments.
 
 ********************************************************************************
 TODO:
