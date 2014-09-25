@@ -5,34 +5,34 @@ PROGRAM: Countersign(R) Version 0.7 Sep 25, 2014
 ********************************************************************************
 README:
 
-	Countersign generates a password according to the users requirements/
-	specifications.  The available options are password length (8 - 12)
-	characters, number of passwords to generate (1 - 10).  Advanced options
-	are to include/exclude: lowercase characters, uppercase characters,
-	numerals, and/or symbols.  Choose your options and click 'generate'. Click
-	'copy' to copy the password(s) to your clipboard.  The ability to reset
-	options to default is available by clicking the 'reset' button.
+    Countersign generates a password according to the users requirements/
+    specifications.  The available options are password length (8 - 12)
+    characters, number of passwords to generate (1 - 10).  Advanced options
+    are to include/exclude: lowercase characters, uppercase characters,
+    numerals, and/or symbols.  Choose your options and click 'generate'. Click
+    'copy' to copy the password(s) to your clipboard.  The ability to reset
+    options to default is available by clicking the 'reset' button.
 
 ********************************************************************************
 INSTALL:
 
-	Minimum Requirements:
-		Python 2.7.3
-		PyGtk 2.24
-		Gtk 2.24.10
+    Minimum Requirements:
+        Python 2.7.3
+        PyGtk 2.24
+        Gtk 2.24.10
 
-	Extract files to desired directory, which include:
-		countersign.glade
-		countersign.py
-		COPYING
-		README
+    Extract files to desired directory, which include:
+        countersign.glade
+        countersign.py
+        COPYING
+        README
 
-	Run with:
-		user@hostname$ python countersign.py
-				   or
-		user@hostname$ ./countersign.py
+    Run with:
+        user@hostname$ python countersign.py
+                   or
+        user@hostname$ ./countersign.py
 
-	NOTE: Do not include 'user@hostname$' as part of the command.
+    NOTE: Do not include 'user@hostname$' as part of the command.
 
 ********************************************************************************
 COPYING / LICENSE:
@@ -62,49 +62,49 @@ THANKS:
 ********************************************************************************
 CHANGELOG:
 
-	04.29.2014 - version 0.3
-		* initial commit version.
-	05.05.2014 - version 0.4
-		* rewrote generate_btn_clicked_cb callback and broke it down
-		  into smaller functions, adding the following functions:
-			- generate_lower
-			- generate_upper
-			- generate_numeral
-			- generate_symbol
-			- check_options
-			- clear_password_list
-			- generate_password
-			- add_password
-		* added functionality to check each character and make sure it
-		  is unique.
-		* added documenting comments.
-	05.06.2014 - version 0.5
-		* added program directory checking, permitting for program to be
-		  executed from any legal directory via a symlink.
-		* added try / except for the loading of the *.glade file.
-		  Program will exit gracefully if the *.glade file cannot be
-		  loaded.
-	09.23.2014 - version 0.6
-		* Introduced check_options() which fixes a bug that would lock
-		  up the program if no Advanced Options were selected.  Set
-		  program to automatically default to lowercase if no Advanced
-		  Options are selected  when generating a password.
-		* Cleaned up comments, removing documentation comments from
-		  portions which did not require documentation comments.
-	09.24.2014 - version 0.7
-		* added functionality to check each character is not sequential.
-		* cleaned up code to conform to standards.
-		* temporarily removed program directory checking.  Bug prevents
-		  it from working properly.
-		* reformatted README file.
+    04.29.2014 - version 0.3
+        * initial commit version.
+    05.05.2014 - version 0.4
+        * rewrote generate_btn_clicked_cb callback and broke it down
+          into smaller functions, adding the following functions:
+            - generate_lower
+            - generate_upper
+            - generate_numeral
+            - generate_symbol
+            - check_options
+            - clear_password_list
+            - generate_password
+            - add_password
+        * added functionality to check each character and make sure it
+          is unique.
+        * added documenting comments.
+    05.06.2014 - version 0.5
+        * added program directory checking, permitting for program to be
+          executed from any legal directory via a symlink.
+        * added try / except for the loading of the *.glade file.
+          Program will exit gracefully if the *.glade file cannot be
+          loaded.
+    09.23.2014 - version 0.6
+        * Introduced check_options() which fixes a bug that would lock
+          up the program if no Advanced Options were selected.  Set
+          program to automatically default to lowercase if no Advanced
+          Options are selected  when generating a password.
+        * Cleaned up comments, removing documentation comments from
+          portions which did not require documentation comments.
+    09.24.2014 - version 0.7
+        * added functionality to check each character is not sequential.
+        * cleaned up code to conform to standards.
+        * temporarily removed program directory checking.  Bug prevents
+          it from working properly.
+        * reformatted README file.
 
 ********************************************************************************
 TODO:
 
-	Add the following functionality:
-		- No consecutive letters or numbers
-		- No sequential letters or numbers
+    Add the following functionality:
+        - No consecutive letters or numbers
+        - No sequential letters or numbers
 
 ********************************************************************************
 BUGS:
-	Still requires alpha testing.
+    Still requires alpha testing.
