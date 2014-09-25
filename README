@@ -1,6 +1,6 @@
 ********************************************************************************
 
-PROGRAM: Countersign(R) Version 0.6 Sep 23, 2014
+PROGRAM: Countersign(R) Version 0.7 Sep 25, 2014
 
 ********************************************************************************
 README:
@@ -17,87 +17,93 @@ README:
 INSTALL:
 
 	Minimum Requirements:
-	    Python 2.7.3
-	    PyGtk 2.24
-	    Gtk 2.24.10
-	
+		Python 2.7.3
+		PyGtk 2.24
+		Gtk 2.24.10
+
 	Extract files to desired directory, which include:
-	    countersign.glade
-	    countersign.py
-	    COPYING
-	    README
-	
+		countersign.glade
+		countersign.py
+		COPYING
+		README
+
 	Run with:
-	user@hostname$ python countersign.py
-	               or
-	user@hostname$ ./countersign.py
-	
+		user@hostname$ python countersign.py
+				   or
+		user@hostname$ ./countersign.py
+
 	NOTE: Do not include 'user@hostname$' as part of the command.
 
 ********************************************************************************
 COPYING / LICENSE:
-	Countersign is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-	
-	Countersign is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-	GNU General Public License for more details.
-	
-	You should have received a copy of the GNU General Public License
-	along with Countersign. If not, see <http://www.gnu.org/licenses/>.
-	
+    Countersign is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Countersign is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Countersign. If not, see <http://www.gnu.org/licenses/>.
+
 ********************************************************************************
 AUTHOR(S):
 
-	Al Zuniga
+    Al Zuniga
 
 ********************************************************************************
 THANKS:
 
-	Thanks to the Open Source Community for their contributions.
+    Thanks to the Open Source Community for their contributions.
 
 ********************************************************************************
 CHANGELOG:
 
-    04.29.2014 - version 0.3
-               * initial commit version.
-    05.05.2014 - version 0.4
-               * rewrote generate_btn_clicked_cb callback and broke it down
-                 into smaller functions, adding the following functions:
-                     - generate_lower
-                     - generate_upper
-                     - generate_numeral
-                     - generate_symbol
-                     - check_options
-                     - clear_password_list
-                     - generate_password
-                     - add_password
-               * added functionality to check each character and make sure it
-                 is unique.
-               * added documenting comments.
+	04.29.2014 - version 0.3
+		* initial commit version.
+	05.05.2014 - version 0.4
+		* rewrote generate_btn_clicked_cb callback and broke it down
+		  into smaller functions, adding the following functions:
+			- generate_lower
+			- generate_upper
+			- generate_numeral
+			- generate_symbol
+			- check_options
+			- clear_password_list
+			- generate_password
+			- add_password
+		* added functionality to check each character and make sure it
+		  is unique.
+		* added documenting comments.
 	05.06.2014 - version 0.5
-			   * added program directory checking, permitting for program to be
-			     executed from any legal directory via a symlink.
-			   * added try / except for the loading of the *.glade file.
-			     Program will exit gracefully if the *.glade file cannot be
-			     loaded.
+		* added program directory checking, permitting for program to be
+		  executed from any legal directory via a symlink.
+		* added try / except for the loading of the *.glade file.
+		  Program will exit gracefully if the *.glade file cannot be
+		  loaded.
 	09.23.2014 - version 0.6
-			   * Fixed bug that would lock up program if no Advanced Options
-			     were selected.  Set program to automatically default to 
-				 lowercase if no Advanced Options are selected 	when generating
-				 a password.
-			   * Cleaned up comments, removing documentation comments from
-				 portions which did not require documentation comments.
+		* Introduced check_options() which fixes a bug that would lock
+		  up the program if no Advanced Options were selected.  Set
+		  program to automatically default to lowercase if no Advanced
+		  Options are selected  when generating a password.
+		* Cleaned up comments, removing documentation comments from
+		  portions which did not require documentation comments.
+	09.24.2014 - version 0.7
+		* added functionality to check each character is not sequential.
+		* cleaned up code to conform to standards.
+		* temporarily removed program directory checking.  Bug prevents
+		  it from working properly.
+		* reformatted README file.
 
 ********************************************************************************
 TODO:
 
-    Add the following functionality:
-        - No consecutive letters or numbers
-        - No sequential letters or numbers
+	Add the following functionality:
+		- No consecutive letters or numbers
+		- No sequential letters or numbers
 
 ********************************************************************************
 BUGS:
